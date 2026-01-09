@@ -23,12 +23,23 @@ print(market)
 
 mlist = D.list_instruments(instruments=market,as_list='list')
 
-print(len(mlist))
-print(mlist[:10])
+# 打印fields
 
-instruments = ['sz000001']
-fields = ['$close', '$volume', 'Ref($close, 1)', 'Mean($close, 3)', '$high-$low']
-re = D.features(instruments, fields, start_time='2020-01-01', end_time='2025-12-31', freq='day')
-# D.features(instruments, fields, start_time='2010-01-01', end_time='2017-12-31', freq='day')
-print(re)
-print(re.head().to_string())
+# exit(0)
+
+from qlib.contrib.data.handler import Alpha158
+
+data_handler_config = {
+  "start_time": "2010-01-01",
+  "end_time": "2017-12-31",
+  "fit_start_time": "2010-01-01",
+  "fit_end_time": "2017-12-31",
+  "instruments":mlist,
+}
+
+h = Alpha158(**data_handler_config)
+
+print(h.get_cols())
+
+
+
